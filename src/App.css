@@ -1,0 +1,525 @@
+.app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Space background elements */
+.app::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(
+      ellipse at 20% 20%,
+      rgba(120, 119, 198, 0.3) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 80%,
+      rgba(255, 119, 198, 0.2) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 40% 40%,
+      rgba(120, 219, 255, 0.1) 0%,
+      transparent 50%
+    );
+  animation: nebula-drift 30s ease-in-out infinite;
+  z-index: -1;
+}
+
+.app::after {
+  content: "";
+  position: absolute;
+  top: -200px;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 400px);
+  background:
+    radial-gradient(2px 2px at 37px 43px, #fff, transparent),
+    radial-gradient(
+      2px 2px at 70px 97px,
+      rgba(120, 219, 255, 0.8),
+      transparent
+    ),
+    radial-gradient(2px 2px at 127px 61px, #eee, transparent),
+    radial-gradient(
+      3px 3px at 163px 89px,
+      rgba(255, 119, 198, 0.6),
+      transparent
+    ),
+    radial-gradient(2px 2px at 197px 23px, #fff, transparent),
+    radial-gradient(
+      4px 4px at 317px 149px,
+      rgba(87, 206, 196, 0.7),
+      transparent
+    ),
+    radial-gradient(2px 2px at 47px 157px, #fff, transparent),
+    radial-gradient(
+      3px 3px at 101px 85px,
+      rgba(120, 219, 255, 0.9),
+      transparent
+    );
+  background-repeat: repeat;
+  background-size: 280px 140px;
+  animation: stars-move 15s linear infinite;
+  z-index: -1;
+}
+
+@keyframes nebula-drift {
+  0%,
+  100% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  25% {
+    transform: translateX(-10px) translateY(-5px) scale(1.02);
+  }
+  50% {
+    transform: translateX(5px) translateY(-10px) scale(0.98);
+  }
+  75% {
+    transform: translateX(-5px) translateY(5px) scale(1.01);
+  }
+}
+
+@keyframes stars-move {
+  0% {
+    transform: translateY(0) translateZ(0);
+  }
+  100% {
+    transform: translateY(-140px) translateZ(0);
+  }
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation:
+    twinkle 3s infinite ease-in-out,
+    space-drift 20s linear infinite;
+  box-shadow: 0 0 6px currentColor;
+}
+
+.shooting-star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow:
+    0 0 8px #fff,
+    0 0 16px #87ceeb,
+    0 0 24px #87ceeb;
+  z-index: 5;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes space-drift {
+  0% {
+    transform: translateY(calc(100vh + 50px)) translateX(0);
+  }
+  100% {
+    transform: translateY(-50px) translateX(0);
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* PongGame glow effect */
+.pong-game-glow {
+  position: relative;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 0 30px rgba(255, 255, 255, 0.3),
+    0 0 60px rgba(255, 255, 255, 0.2),
+    0 0 90px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 30px rgba(255, 255, 255, 0.3),
+      0 0 60px rgba(255, 255, 255, 0.2),
+      0 0 90px rgba(255, 255, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 40px rgba(255, 255, 255, 0.4),
+      0 0 80px rgba(255, 255, 255, 0.3),
+      0 0 120px rgba(255, 255, 255, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Distant planets */
+.planet {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(0.5px);
+  animation: planet-float 20s ease-in-out infinite;
+  z-index: 1;
+}
+
+.planet-1 {
+  width: 80px;
+  height: 80px;
+  top: 15%;
+  left: 10%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 179, 186, 0.8),
+    rgba(255, 119, 198, 0.6) 40%,
+    rgba(180, 80, 150, 0.4)
+  );
+  box-shadow:
+    0 0 30px rgba(255, 119, 198, 0.4),
+    0 0 60px rgba(255, 119, 198, 0.2),
+    inset -10px -10px 30px rgba(0, 0, 0, 0.3);
+  animation-duration: 25s;
+}
+
+.planet-2 {
+  width: 60px;
+  height: 60px;
+  top: 70%;
+  right: 15%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(135, 206, 235, 0.8),
+    rgba(120, 219, 255, 0.6) 40%,
+    rgba(80, 150, 200, 0.4)
+  );
+  box-shadow:
+    0 0 25px rgba(120, 219, 255, 0.4),
+    0 0 50px rgba(120, 219, 255, 0.2),
+    inset -8px -8px 25px rgba(0, 0, 0, 0.3);
+  animation-duration: 30s;
+}
+
+.planet-3 {
+  width: 100px;
+  height: 100px;
+  top: 80%;
+  right: 70%;
+  background: radial-gradient(
+    circle at 32% 32%,
+    rgba(255, 200, 124, 0.7),
+    rgba(255, 160, 80, 0.5) 40%,
+    rgba(200, 120, 60, 0.3)
+  );
+  box-shadow:
+    0 0 35px rgba(255, 160, 80, 0.4),
+    0 0 70px rgba(255, 160, 80, 0.2),
+    inset -12px -12px 35px rgba(0, 0, 0, 0.3);
+  animation-duration: 35s;
+}
+
+.planet-4 {
+  width: 50px;
+  height: 50px;
+  top: 25%;
+  right: 25%;
+  background: radial-gradient(
+    circle at 33% 33%,
+    rgba(180, 150, 255, 0.8),
+    rgba(140, 100, 230, 0.6) 40%,
+    rgba(100, 70, 180, 0.4)
+  );
+  box-shadow:
+    0 0 20px rgba(140, 100, 230, 0.4),
+    0 0 40px rgba(140, 100, 230, 0.2),
+    inset -6px -6px 20px rgba(0, 0, 0, 0.3);
+  animation-duration: 28s;
+}
+
+@keyframes planet-float {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translateY(-15px) translateX(-8px) scale(1.05);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-8px) translateX(5px) scale(0.95);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translateY(10px) translateX(-5px) scale(1.02);
+    opacity: 0.75;
+  }
+}
+
+@keyframes saturn-float {
+  0%,
+  100% {
+    transform: rotateZ(-20deg) rotateY(15deg) rotateX(-5deg) translateY(0)
+      translateX(0) scale(1);
+    opacity: 0.7;
+  }
+  25% {
+    transform: rotateZ(-20deg) rotateY(15deg) rotateX(-5deg) translateY(-15px)
+      translateX(-8px) scale(1.05);
+    opacity: 0.8;
+  }
+  50% {
+    transform: rotateZ(-20deg) rotateY(15deg) rotateX(-5deg) translateY(-8px)
+      translateX(5px) scale(0.95);
+    opacity: 0.9;
+  }
+  75% {
+    transform: rotateZ(-20deg) rotateY(15deg) rotateX(-5deg) translateY(10px)
+      translateX(-5px) scale(1.02);
+    opacity: 0.75;
+  }
+}
+
+/* Bright sun */
+.sun {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  top: 10%;
+  right: 12%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 220, 1) 0%,
+    rgba(255, 230, 100, 0.95) 20%,
+    rgba(255, 200, 50, 0.8) 40%,
+    rgba(255, 150, 0, 0.6) 60%,
+    rgba(255, 100, 0, 0.3) 80%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 40px rgba(255, 230, 100, 0.9),
+    0 0 80px rgba(255, 200, 50, 0.7),
+    0 0 120px rgba(255, 150, 0, 0.5),
+    0 0 160px rgba(255, 100, 0, 0.3),
+    inset 0 0 30px rgba(255, 255, 255, 0.4);
+  animation: sun-pulse 4s ease-in-out infinite;
+  z-index: 1;
+  filter: blur(0.5px);
+}
+
+.sun::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 200, 0.4) 30%,
+    transparent 70%
+  );
+}
+
+.sun::after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 230, 100, 0.2) 0%,
+    rgba(255, 200, 50, 0.1) 30%,
+    transparent 60%
+  );
+  animation: sun-rays 8s linear infinite;
+}
+
+@keyframes sun-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 40px rgba(255, 230, 100, 0.9),
+      0 0 80px rgba(255, 200, 50, 0.7),
+      0 0 120px rgba(255, 150, 0, 0.5),
+      0 0 160px rgba(255, 100, 0, 0.3),
+      inset 0 0 30px rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow:
+      0 0 50px rgba(255, 230, 100, 1),
+      0 0 100px rgba(255, 200, 50, 0.8),
+      0 0 150px rgba(255, 150, 0, 0.6),
+      0 0 200px rgba(255, 100, 0, 0.4),
+      inset 0 0 40px rgba(255, 255, 255, 0.5);
+  }
+}
+
+@keyframes sun-rays {
+  0% {
+    transform: rotate(0deg);
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0.5;
+  }
+}
+
+/* Saturn with rings */
+.saturn {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  bottom: 32%;
+  left: 8%;
+  z-index: 2;
+  animation: saturn-float 30s ease-in-out infinite;
+  transform-style: preserve-3d;
+  filter: blur(0.5px);
+}
+
+.saturn-rings {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(24, 19, 25, 0) 0%,
+    rgba(53, 52, 51, 0) 34%,
+    rgba(55, 54, 52, 0.6) 36%,
+    rgba(56, 55, 53, 0.6) 37%,
+    rgba(68, 67, 66, 0.7) 38%,
+    rgba(56, 55, 53, 0.6) 39%,
+    rgba(68, 67, 66, 0.7) 40%,
+    rgba(56, 55, 53, 0.6) 41%,
+    rgba(87, 77, 76, 0.7) 42%,
+    rgba(87, 77, 76, 0.7) 44%,
+    rgba(113, 110, 103, 0.8) 46%,
+    rgba(113, 110, 103, 0.8) 48%,
+    rgba(113, 98, 93, 0.8) 49%,
+    rgba(113, 98, 93, 0.8) 51%,
+    rgba(122, 115, 105, 0.8) 52%,
+    rgba(113, 98, 93, 0.8) 53%,
+    rgba(113, 98, 93, 0.8) 54%,
+    rgba(122, 115, 105, 0.8) 55%,
+    rgba(106, 99, 89, 0.7) 56%,
+    rgba(106, 99, 89, 0.7) 58%,
+    rgba(79, 76, 76, 0) 60%,
+    rgba(65, 64, 70, 0.6) 61%,
+    rgba(65, 64, 70, 0.6) 62%,
+    rgba(90, 85, 89, 0.7) 63%,
+    rgba(78, 74, 73, 0.6) 65%,
+    rgba(78, 73, 74, 0.6) 67%,
+    rgba(78, 73, 74, 0) 68%,
+    rgba(78, 73, 75, 0.5) 69%,
+    rgba(78, 73, 75, 0.5) 70%,
+    rgba(78, 73, 76, 0) 71%,
+    rgba(77, 72, 76, 0) 72%,
+    rgba(24, 19, 25, 0) 100%
+  );
+  transform: rotateX(75deg);
+  filter: blur(0.5px);
+}
+
+.saturn-planet {
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  top: 55px;
+  left: 55px;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 40%,
+      rgba(0, 0, 0, 0.4) 100%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 62%,
+      rgba(0, 0, 0, 0.4) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(131, 129, 117, 0.8) 0%,
+      rgba(131, 129, 117, 0.8) 3%,
+      rgba(150, 144, 130, 0.8) 5%,
+      rgba(150, 144, 130, 0.8) 9%,
+      rgba(190, 177, 145, 0.9) 20%,
+      rgba(190, 177, 145, 0.9) 32%,
+      rgba(202, 176, 153, 0.9) 35%,
+      rgba(202, 176, 153, 0.9) 47%,
+      rgba(205, 186, 156, 0.9) 48%,
+      rgba(205, 186, 156, 0.9) 49%,
+      rgba(211, 184, 157, 0.9) 51%,
+      rgba(211, 184, 157, 0.9) 59%,
+      rgba(218, 188, 162, 0.9) 61%,
+      rgba(218, 188, 162, 0.9) 63%,
+      rgba(208, 180, 158, 0.9) 64%,
+      rgba(208, 180, 158, 0.9) 68%,
+      rgba(213, 181, 143, 0.9) 74%,
+      rgba(213, 181, 143, 0.9) 78%,
+      rgba(221, 203, 157, 0.9) 83%,
+      rgba(221, 203, 157, 0.9) 85%,
+      rgba(212, 203, 174, 0.9) 90%,
+      rgba(212, 203, 174, 0.9) 100%
+    );
+  box-shadow:
+    0 0 15px rgba(210, 190, 160, 0.3),
+    inset -5px -5px 15px rgba(0, 0, 0, 0.5);
+}
